@@ -4,8 +4,6 @@
 [ext_resource type="AudioStream" uid="uid://cfsa1h3cbopku" path="res://sounds/Undertale OST 069 - For the Fans.mp3" id="2_oddrm"]
 
 [node name="MusicSystem" type="Node2D"]
-position = Vector2(-3625.76, -1969.92)
-scale = Vector2(7.04, 7.04)
 script = ExtResource("1_xhcjq")
 music_node_name = "BGM"
 bpm = 94.0
