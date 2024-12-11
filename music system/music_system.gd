@@ -1,6 +1,7 @@
 extends Node2D
 # .tscn (씬)으로 불러온 경우, 반드시 "로컬로 만들기" 해야 음악과 음악 설정을 따로 접근할 수 있음.
 
+@onready var correct_control = $"../CorrectControl"
 @export var music_node_name: String  # 타입: AudioStreamPlayer2D, 인스펙터에서 노드의 이름 입력.
 
 var music_node: AudioStreamPlayer2D
@@ -22,7 +23,7 @@ func _ready() -> void:
 	is_ready = true  # 초기화 완료
 	print("_Ready 완료")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if music_node == null:
 		return
 	
@@ -32,6 +33,7 @@ func _process(delta: float) -> void:
 	#이게 이렇게 세트임. 아래 조건 등은 변경할 것.
 	if Input.is_action_just_pressed("ui_accept") and not is_music_started:
 		start_music()
+		correct_control.reset_correct_timing()
 		
 	elif Input.is_action_just_pressed("ui_accept") and music_node.playing:
 		stop_music()
@@ -83,9 +85,9 @@ func check_beat() -> void:  #박자 계산 함수
 		print("current_music_time: ", String("%.3f" % current_music_time), ", next_beat_time: ", String("%.3f" % next_beat_time))
 		music_system_output = 1
 		next_beat_time += beat_interval
-		beat_qurter += 1
 		print("비트 실행 후 next_beat_time: ", String("%.3f" % next_beat_time))
 		print("현재 박자: ", beat_qurter)
+		beat_qurter += 1
 
 func _on_music_finished() -> void:
 	print("음악이 끝났습니다!")

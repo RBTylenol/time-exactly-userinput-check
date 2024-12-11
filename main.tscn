@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bdjbgxv0111m7"]
+[gd_scene load_steps=9 format=3 uid="uid://bdjbgxv0111m7"]
 
+[ext_resource type="Script" path="res://main.gd" id="1_1q58d"]
 [ext_resource type="PackedScene" uid="uid://bwdjre2ke5o1f" path="res://music system/music_system.tscn" id="1_a88bp"]
 [ext_resource type="Script" path="res://correct_control.gd" id="1_hh1ut"]
 [ext_resource type="Script" path="res://beat_indicator.gd" id="2_0eea3"]
+[ext_resource type="Script" path="res://beat_sprite_5.gd" id="5_8jajm"]
+[ext_resource type="Script" path="res://label.gd" id="6_giqbb"]
 
 [sub_resource type="Gradient" id="Gradient_3jky3"]
 offsets = PackedFloat32Array(0)
@@ -13,6 +16,7 @@ gradient = SubResource("Gradient_3jky3")
 width = 1
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_1q58d")
 
 [node name="MusicSystemExample" type="Node2D" parent="."]
 
@@ -53,6 +57,12 @@ position = Vector2(240, 30)
 scale = Vector2(60, 60)
 texture = SubResource("GradientTexture1D_fs80c")
 
+[node name="BeatSprite5" type="Sprite2D" parent="MusicSystemExample/CanvasLayer/BoxContainer/BeatIndicator"]
+position = Vector2(30, 103)
+scale = Vector2(60, 60)
+texture = SubResource("GradientTexture1D_fs80c")
+script = ExtResource("5_8jajm")
+
 [node name="BoxContainer2" type="BoxContainer" parent="MusicSystemExample/CanvasLayer"]
 anchors_preset = 8
 anchor_left = 0.5
@@ -69,6 +79,6 @@ grow_vertical = 2
 [node name="Label" type="Label" parent="MusicSystemExample/CanvasLayer/BoxContainer2"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Perfe"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("6_giqbb")

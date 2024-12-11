@@ -1,15 +1,14 @@
 extends Node2D
 
-@export var judge_range = 0.05
-# hello??
+@export var judge_range = 0.1
 
 @onready var label = $"../CanvasLayer/BoxContainer2/Label"
 @onready var music_system = $"../MusicSystem"
 
-var correct_beat : Array[int] = [1, 5, 9, 13, 17, 21, 25, 29, 33, 37, 41]
+@export var correct_beat : Array[int] = [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40]
 
-var forward_correct_time : Array[float] = [0.0]
-var backward_correct_time : Array[float] = [0.0]
+var forward_correct_time : Array[float] = []
+var backward_correct_time : Array[float] = []
 
 func reset_correct_timing() -> void:
 	for i in range(correct_beat.size()):
@@ -20,18 +19,20 @@ func reset_correct_timing() -> void:
 	for i in range(correct_beat.size()):
 		print("forward correct time[", i, "]: ",forward_correct_time[i])
 		print("backward correct time[", i, "]: ", backward_correct_time[i])
-	get_tree().create_timer(1000).timeout
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _process(_delta: float) -> void:
+	judge()
+
+var is_ranging = false
+var judge_index : int = 0
+func judge() -> void:
+	if music_system.music_system_output == -1:
+		return
+		
+	if forward_correct_time[judge_index] <= music_system.current_music_time and music_system.current_music_time <= backward_correct_time[judge_index]:
+		is_ranging = true
 	
-	
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_up"): ##여기 조건에 실행되는 함수를, 음악이 실행되고 난 후에 실행될 수 있도록 코드 구성.
-		reset_correct_timing()
-	if event.is_action_pressed("key_dot"):
-		print("점 키 눌림")
-	
-	var key_pressed_time = Time.get_ticks_msec()/1000.0 - music_system.music_start_time
-	music_system.next_beat_time
+	if backward_correct_time[judge_index] < music_system.current_music_time and is_ranging == true:
+		if not forward_correct_time.size()-1 == judge_index:
+			judge_index += 1
+		is_ranging = false
