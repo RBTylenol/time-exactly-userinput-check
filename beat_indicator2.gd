@@ -8,7 +8,7 @@ var compare_beat_because_print : int = 0
 
 func _process(_delta: float) -> void:
 	compare_beat_because_print = beat
-	beat = music_system.beat_quarter
+	beat = music_system.beat_16th
 
 	if beat == compare_beat_because_print:
 		return
