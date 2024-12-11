@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=3 uid="uid://bdjbgxv0111m7"]
+
+[ext_resource type="PackedScene" uid="uid://bwdjre2ke5o1f" path="res://music system/music_system.tscn" id="1_a88bp"]
+[ext_resource type="Script" path="res://correct_control.gd" id="1_hh1ut"]
+[ext_resource type="Script" path="res://beat_indicator.gd" id="2_0eea3"]
+
+[sub_resource type="Gradient" id="Gradient_3jky3"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_fs80c"]
+gradient = SubResource("Gradient_3jky3")
+width = 1
+
+[node name="Main" type="Node2D"]
+
+[node name="MusicSystemExample" type="Node2D" parent="."]
+
+[node name="CorrectControl" type="Node2D" parent="MusicSystemExample"]
+script = ExtResource("1_hh1ut")
+
+[node name="MusicSystem" parent="MusicSystemExample" instance=ExtResource("1_a88bp")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="MusicSystemExample"]
+
+[node name="BoxContainer" type="BoxContainer" parent="MusicSystemExample/CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+
+[node name="BeatIndicator" type="Node2D" parent="MusicSystemExample/CanvasLayer/BoxContainer"]
+position = Vector2(-270, 0)
+script = ExtResource("2_0eea3")
+
+[node name="BeatSprite1" type="Sprite2D" parent="MusicSystemExample/CanvasLayer/BoxContainer/BeatIndicator"]
+position = Vector2(30, 30)
+scale = Vector2(60, 60)
+texture = SubResource("GradientTexture1D_fs80c")
+
+[node name="BeatSprite2" type="Sprite2D" parent="MusicSystemExample/CanvasLayer/BoxContainer/BeatIndicator"]
+position = Vector2(100, 30)
+scale = Vector2(60, 60)
+texture = SubResource("GradientTexture1D_fs80c")
+
+[node name="BeatSprite3" type="Sprite2D" parent="MusicSystemExample/CanvasLayer/BoxContainer/BeatIndicator"]
+position = Vector2(170, 30)
+scale = Vector2(60, 60)
+texture = SubResource("GradientTexture1D_fs80c")
+
+[node name="BeatSprite4" type="Sprite2D" parent="MusicSystemExample/CanvasLayer/BoxContainer/BeatIndicator"]
+position = Vector2(240, 30)
+scale = Vector2(60, 60)
+texture = SubResource("GradientTexture1D_fs80c")
+
+[node name="BoxContainer2" type="BoxContainer" parent="MusicSystemExample/CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -20.0
+offset_right = 28.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MusicSystemExample/CanvasLayer/BoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Perfe"
+horizontal_alignment = 1
+vertical_alignment = 1

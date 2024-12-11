@@ -1,0 +1,77 @@
+[gd_scene load_steps=12 format=3 uid="uid://bdjbgxv0111m7"]
+
+[ext_resource type="AudioStream" uid="uid://42a0svsfo5wo" path="res://sounds/Tape Rewind - Gaming Sound Effect (HD).mp3" id="1_lrhom"]
+[ext_resource type="Script" path="res://music_system.gd" id="1_tfbjm"]
+[ext_resource type="AudioStream" uid="uid://cfsa1h3cbopku" path="res://sounds/Undertale OST 069 - For the Fans.mp3" id="2_60u0k"]
+[ext_resource type="Script" path="res://ball_spawn_control.gd" id="2_rj08r"]
+[ext_resource type="PackedScene" uid="uid://n07tdgyic1l5" path="res://ball.tscn" id="3_v3xjo"]
+[ext_resource type="Script" path="res://platform_system.gd" id="4_qiaxs"]
+[ext_resource type="Script" path="res://queue_free.gd" id="6_7crnr"]
+
+[sub_resource type="Gradient" id="Gradient_y5268"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_he8f3"]
+gradient = SubResource("Gradient_y5268")
+width = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i3ghk"]
+size = Vector2(100, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kahra"]
+size = Vector2(10000, 20)
+
+[node name="Main" type="Node2D"]
+
+[node name="MusicSystem" type="Node2D" parent="."]
+position = Vector2(-3625.76, -1969.92)
+scale = Vector2(7.04, 7.04)
+script = ExtResource("1_tfbjm")
+music_node_name = "abc"
+bpm = 94.0
+
+[node name="abc" type="AudioStreamPlayer2D" parent="MusicSystem"]
+stream = ExtResource("2_60u0k")
+max_distance = 1e+13
+
+[node name="Rewind" type="AudioStreamPlayer2D" parent="MusicSystem"]
+position = Vector2(515.023, 279.818)
+scale = Vector2(0.142045, 0.142045)
+stream = ExtResource("1_lrhom")
+max_distance = 1e+07
+bus = &"Rewind"
+
+[node name="PLATFORM" type="Node2D" parent="."]
+position = Vector2(556, 304)
+
+[node name="PlatformSystem" type="Node2D" parent="PLATFORM"]
+scale = Vector2(7.04, 7.04)
+script = ExtResource("4_qiaxs")
+
+[node name="Platform" type="StaticBody2D" parent="PLATFORM/PlatformSystem"]
+
+[node name="Sprite2D" type="Sprite2D" parent="PLATFORM/PlatformSystem/Platform"]
+scale = Vector2(100, 10)
+texture = SubResource("GradientTexture1D_he8f3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PLATFORM/PlatformSystem/Platform"]
+shape = SubResource("RectangleShape2D_i3ghk")
+
+[node name="BallSpawnControl" type="Node2D" parent="."]
+script = ExtResource("2_rj08r")
+ball_scene = ExtResource("3_v3xjo")
+
+[node name="BallSystem" type="Node2D" parent="."]
+position = Vector2(556, 304)
+
+[node name="Ball" parent="BallSystem" instance=ExtResource("3_v3xjo")]
+position = Vector2(0, -246)
+
+[node name="QueueFree" type="Area2D" parent="BallSystem"]
+position = Vector2(0, 396)
+script = ExtResource("6_7crnr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BallSystem/QueueFree"]
+shape = SubResource("RectangleShape2D_kahra")
+
+[connection signal="body_entered" from="BallSystem/QueueFree" to="BallSystem/QueueFree" method="_on_body_entered"]
