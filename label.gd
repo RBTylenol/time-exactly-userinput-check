@@ -1,13 +1,11 @@
 extends Label
 
-@onready var correct_control = $"../../../CorrectControl"
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("key_dot"):
-		if correct_control.is_ranging:
-			text = "Perfect! ^^"
+func _on_correct_control__is_ranging(is_it: bool) -> void:
+	if Input.is_action_just_pressed("key_dot"):
+		if is_it:
+			text = "Perfect"
 		else:
-			text = "Bad ><"
-			
+			text = "bad"
+		
 		await get_tree().create_timer(1.0).timeout
-		text = ""
+		text=""

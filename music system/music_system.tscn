@@ -6,10 +6,10 @@
 [node name="MusicSystem" type="Node2D"]
 script = ExtResource("1_xhcjq")
 music_node_name = "BGM"
+bgm_stream = ExtResource("2_oddrm")
 bpm = 94.0
 
 [node name="BGM" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_oddrm")
 max_distance = 1e+13
 
 [connection signal="finished" from="BGM" to="." method="_on_music_finished"]
