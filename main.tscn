@@ -1,6 +1,5 @@
-[gd_scene load_steps=9 format=3 uid="uid://bdjbgxv0111m7"]
+[gd_scene load_steps=8 format=3 uid="uid://bdjbgxv0111m7"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_1q58d"]
 [ext_resource type="PackedScene" uid="uid://bwdjre2ke5o1f" path="res://music system/music_system.tscn" id="1_a88bp"]
 [ext_resource type="Script" path="res://correct_control.gd" id="1_hh1ut"]
 [ext_resource type="Script" path="res://beat_indicator.gd" id="2_0eea3"]
@@ -16,7 +15,6 @@ gradient = SubResource("Gradient_3jky3")
 width = 1
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_1q58d")
 
 [node name="MusicSystemExample" type="Node2D" parent="."]
 
@@ -38,7 +36,6 @@ position = Vector2(-270, 0)
 script = ExtResource("2_0eea3")
 
 [node name="BeatSprite" type="Sprite2D" parent="MusicSystemExample/CanvasLayer/BoxContainer/BeatIndicator"]
-visible = false
 position = Vector2(30, 103)
 scale = Vector2(60, 60)
 texture = SubResource("GradientTexture1D_fs80c")
