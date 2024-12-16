@@ -81,6 +81,21 @@ position = Vector2(240, 182)
 scale = Vector2(60, 60)
 texture = SubResource("GradientTexture1D_fs80c")
 
+[node name="BeatSprite9" type="Sprite2D" parent="MusicSystemExample/CanvasLayer/BoxContainer/BeatIndicator"]
+position = Vector2(30, 257)
+scale = Vector2(60, 60)
+texture = SubResource("GradientTexture1D_fs80c")
+
+[node name="BeatSprite10" type="Sprite2D" parent="MusicSystemExample/CanvasLayer/BoxContainer/BeatIndicator"]
+position = Vector2(135, 258)
+scale = Vector2(60, 60)
+texture = SubResource("GradientTexture1D_fs80c")
+
+[node name="BeatSprite11" type="Sprite2D" parent="MusicSystemExample/CanvasLayer/BoxContainer/BeatIndicator"]
+position = Vector2(240, 257)
+scale = Vector2(60, 60)
+texture = SubResource("GradientTexture1D_fs80c")
+
 [node name="BoxContainer2" type="BoxContainer" parent="MusicSystemExample/CanvasLayer"]
 anchors_preset = 8
 anchor_left = 0.5
@@ -103,6 +118,7 @@ script = ExtResource("6_giqbb")
 
 [connection signal="_beat_16th" from="MusicSystemExample/MusicSystem" to="MusicSystemExample/CanvasLayer/BoxContainer/BeatIndicator" method="_on_music_system__beat_16_th"]
 [connection signal="_beat_quarter" from="MusicSystemExample/MusicSystem" to="MusicSystemExample/CanvasLayer/BoxContainer/BeatIndicator" method="_on_music_system__beat_quarter"]
+[connection signal="_beat_triplet" from="MusicSystemExample/MusicSystem" to="MusicSystemExample/CanvasLayer/BoxContainer/BeatIndicator" method="_on_music_system__beat_triplet"]
 [connection signal="_you_can_reset_correct_timing" from="MusicSystemExample/MusicSystem" to="MusicSystemExample/CorrectControl" method="_on_music_system__you_can_reset_correct_timing"]
 [connection signal="_is_ranging" from="MusicSystemExample/CorrectControl" to="MusicSystemExample/CanvasLayer/BoxContainer/BeatIndicator/BeatSprite" method="_on_correct_control__is_ranging"]
 [connection signal="_is_ranging" from="MusicSystemExample/CorrectControl" to="MusicSystemExample/CanvasLayer/BoxContainer2/Label" method="_on_correct_control__is_ranging"]

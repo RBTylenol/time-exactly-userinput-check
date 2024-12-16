@@ -9,8 +9,13 @@ var beat_16th_interval: float
 var next_beat_16th_time: float = 0.0
 var beat_16th: int = 0
 
+var beat_triplet_interval: float
+var next_beat_triplet_time: float = 0.0
+var beat_triplet: int = 0
+
 signal _beat_quarter(beat: int)
 signal _beat_16th(beat: int)
+signal _beat_triplet(beat: int)
 signal _you_can_reset_correct_timing
 
 func _ready() -> void:
@@ -18,6 +23,7 @@ func _ready() -> void:
 	if bgm_stream:
 		music_node.stream = bgm_stream
 	beat_16th_interval = 60.0 / bpm / 4.0
+	beat_triplet_interval = 60.0 / bpm / 3.0
 
 func _process(_delta: float) -> void:
 	if not music_node:
@@ -47,6 +53,15 @@ func _process(_delta: float) -> void:
 			const ERROR_LIMIT = 0.05  # 초 단위 (50ms)
 			if abs(error) > ERROR_LIMIT:
 				next_beat_16th_time += error * 0.5  # 오차의 절반만큼 보정
+				
+		if current_position >= next_beat_triplet_time:
+			emit_signal("_beat_triplet", beat_triplet)
+			beat_triplet += 1
+			
+			if beat_triplet % 3 == 0 and beat_16th % 4 == 0:
+				next_beat_triplet_time = next_beat_16th_time - beat_16th_interval
+				
+			next_beat_triplet_time += beat_triplet_interval
 
 func start_music() -> void:
 	music_node.play()
@@ -60,6 +75,8 @@ func stop_music() -> void:
 func reset_beat_timing() -> void:
 	next_beat_16th_time = 0.0
 	beat_16th = 0
+	next_beat_triplet_time = 0.0
+	beat_triplet = 0
 	emit_signal("_beat_quarter", beat_16th / 4)
 
 func _on_music_finished() -> void:

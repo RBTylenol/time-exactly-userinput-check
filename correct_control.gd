@@ -2,7 +2,7 @@ extends Node2D
 
 @export var judge_range: float = 0.1
 @onready var music_system = $"../MusicSystem"
-@export var correct_beat_quarter: Array[int] = [0, 4, 8, 12, 16, 20, 24, 28, 32, 36]
+@export var correct_beat_quarter: Array[int] = [0, 4, 8, 12, 16, 20, 24, 28, 32, 36, 56]
 
 var forward_correct_time: Array[float] = []
 var backward_correct_time: Array[float] = []
